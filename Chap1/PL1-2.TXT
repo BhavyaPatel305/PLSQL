@@ -1,0 +1,636 @@
+SQL> 
+SQL> REM GETTING VALUE FROM USER
+SQL> 
+SQL> REM WE CAN USE SUBSTITUITION VARIABLE FOR GETTING VALUE FROM USER
+SQL> 
+SQL> REM PLSQL SUPPORTS TWO TYPES OF SQLPLUS VARIABLES : 1 SUBSTITUITION VARIABLE 2 BIND/HOST VARIABLE
+SQL> 
+SQL> SELECT * FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME      LAST_NAME       EMAIL      PHONE_NUMBER         HIRE_DATE JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                 
+----------- --------------- --------------- ---------- -------------------- --------- ---------- ---------- -------------- ---------- -------------                                 
+        100 Steven          King            SKING      515.123.4567         17-JUL-87 AD_PRES         24000                                      90                                 
+        101 Neena           Kochhar         NKOCHHAR   515.123.4568         21-SEP-89 AD_VP           17000                       100            90                                 
+        102 Lex             De Haan         LDEHAAN    515.123.4569         13-JAN-93 AD_VP           17000                       100            90                                 
+        103 Alexander       Hunold          AHUNOLD    590.423.4567         03-JAN-90 IT_PROG          9000                       102            60                                 
+        104 Bruce           Ernst           BERNST     590.423.4568         21-MAY-91 IT_PROG          6000                       103            60                                 
+        107 Diana           Lorentz         DLORENTZ   590.423.5567         07-FEB-99 IT_PROG          4200                       103            60                                 
+        124 Kevin           Mourgos         KMOURGOS   650.123.5234         16-NOV-99 ST_MAN           5800                       100            50                                 
+        141 Trenna          Rajs            TRAJS      650.121.8009         17-OCT-95 ST_CLERK         3500                       124            50                                 
+        142 Curtis          Davies          CDAVIES    650.121.2994         29-JAN-97 st_clerk         3100                       124            50                                 
+        143 Randall         Matos           RMATOS     650.121.2874         15-MAR-98 St_Clerk         2600                       124            50                                 
+        144 Peter           Vargas          PVARGAS    650.121.2004         09-JUL-98 St_ClERk         2500                       124            50                                 
+        149 Eleni           Zlotkey         EZLOTKEY   011.44.1344.429018   29-JAN-00 SA_MAN          10500             .2        100            80                                 
+        174 Ellen           Abel                       011.44.1644.429267   11-MAY-96 SA_REP          11000             .3        149            80                                 
+        176 Jonathon        Taylor          JTAYLOR    011.44.1644.429265   24-MAR-98 SA_REP           8600             .3        149            80                                 
+        178 Kimerely        Grant           KGRANT     011.44.1644.429263   24-MAY-99 SA_REP           7000            .15        149                                               
+        200 Jennifer        Whalen          JWHALEN    515.123.4444         17-SEP-87 AD_ASST          4400                       101            10                                 
+        201 Michael         Hartstein       MHARTSTE   515.123.5555         17-FEB-96 MK_MAN          13000                       100            20                                 
+        202 Pat             Fay             PFAY       603.123.6666         17-AUG-97 MK_REP           6000                       201            20                                 
+        205 Shelley         Higgins         SHIGGINS   515.123.8080         07-JUN-94 AC_MGR          12000                       101           110                                 
+        206 William         Gietz           WGIETZ     515.123.8181         07-JUN-94 AC_ACCOUNT       8300                       205           110                                 
+
+20 rows selected.
+
+SQL> SELECT * FROM DEPARTMENTS;
+
+DEPARTMENT_ID DEPARTMENT_NAME                MANAGER_ID LOCATION_ID                                                                                                                 
+------------- ------------------------------ ---------- -----------                                                                                                                 
+           10 Administration                        200        1700                                                                                                                 
+           20 Marketing                             201        1800                                                                                                                 
+           50 Shiping                               124        1500                                                                                                                 
+           60 IT                                    103        1400                                                                                                                 
+           80 Sales                                 149        2500                                                                                                                 
+           90 Executive                             100        1700                                                                                                                 
+          110 Accounting                            205        1700                                                                                                                 
+          190 Contracting                                      1700                                                                                                                 
+
+8 rows selected.
+
+SQL> SELECT * FROM LOCATIONS;
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                       
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                       
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                       
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                       
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                       
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                       
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                       
+
+SQL> SELECT * FROM &TN;
+Enter value for tn: REGIONS
+old   1: SELECT * FROM &TN
+new   1: SELECT * FROM REGIONS
+
+ REGION_ID REGION_NAME                                                                                                                                                              
+---------- -------------------------                                                                                                                                                
+         1 Europe                                                                                                                                                                   
+         2 Americas                                                                                                                                                                 
+         3 Asia                                                                                                                                                                     
+         4 Middle East and Africa                                                                                                                                                   
+
+SQL> /
+Enter value for tn: COUNTRIES
+old   1: SELECT * FROM &TN
+new   1: SELECT * FROM COUNTRIES
+
+CO COUNTRY_NAME                              REGION_ID                                                                                                                              
+-- ---------------------------------------- ----------                                                                                                                              
+CA Canada                                            2                                                                                                                              
+DE Germany                                           1                                                                                                                              
+UK United Kingdom                                    1                                                                                                                              
+US United States of America                          2                                                                                                                              
+
+SQL> /
+Enter value for tn: LOCATIONS
+old   1: SELECT * FROM &TN
+new   1: SELECT * FROM LOCATIONS
+
+LOCATION_ID STREET_ADRESS                            POSTAL_CODE  CITY                           STATE_PROVINCE            CO                                                       
+----------- ---------------------------------------- ------------ ------------------------------ ------------------------- --                                                       
+       1400 2014 Jabberwocky Rd                      26192        Southlake                      Texas                     US                                                       
+       1500 2011 Interiors Blvd                      99236        South San Francisco            California                US                                                       
+       1700 2004 Charade Rd                          98199        Seattle                        Washington                US                                                       
+       1800 460 Bloor St. W.                         ON M5S 1X8   Toronto                        Ontario                   CA                                                       
+       2500 Magdalen Centre, The Oxford Science Park OX9 9ZB      Oxford                         Oxford                    UK                                                       
+
+SQL> REM WAP WHICH WILL ASK FOR TWO NUMBERS AND WILL DISPLAY SUBTRACTION AND DIVISION.
+SQL> 
+SQL> DECLARE
+  2    X NUMBER := &X;
+  3    Y NUMBER := &Y;
+  4  BEGIN
+  5    DBMS_OUTPUT.PUT_LINE('X = ' || X);
+  6    DBMS_OUTPUT.PUT_LINE('Y = ' || Y);
+  7    DBMS_OUTPUT.PUT_LINE('X-Y = ' || (X-Y));
+  8    DBMS_OUTPUT.PUT_LINE('X/Y = ' || (X/Y));
+  9  END;
+ 10  /
+Enter value for x: 10
+old   2:   X NUMBER := &X;
+new   2:   X NUMBER := 10;
+Enter value for y: 5
+old   3:   Y NUMBER := &Y;
+new   3:   Y NUMBER := 5;
+X = 10                                                                                                                                                                              
+Y = 5                                                                                                                                                                               
+X-Y = 5                                                                                                                                                                             
+X/Y = 2                                                                                                                                                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for x: 28
+old   2:   X NUMBER := &X;
+new   2:   X NUMBER := 28;
+Enter value for y: 7
+old   3:   Y NUMBER := &Y;
+new   3:   Y NUMBER := 7;
+X = 28                                                                                                                                                                              
+Y = 7                                                                                                                                                                               
+X-Y = 21                                                                                                                                                                            
+X/Y = 4                                                                                                                                                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for x: 40
+old   2:   X NUMBER := &X;
+new   2:   X NUMBER := 40;
+Enter value for y: 7
+old   3:   Y NUMBER := &Y;
+new   3:   Y NUMBER := 7;
+X = 40                                                                                                                                                                              
+Y = 7                                                                                                                                                                               
+X-Y = 33                                                                                                                                                                            
+X/Y = 5.71428571428571428571428571428571428571                                                                                                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> REM WAP WHICH WILL DECLARE TWO VARIABLE. INITIALIZED ONE OF IT AND TAKE VALUE FROM USER FOR OTHER VARIABLE.
+SQL> 
+SQL> REM DISPLAY ADDITION , SUBTRACTION , MULTIPLICATION AND DIVISION.
+SQL> 
+SQL> DECLARE
+  2     X NUMBER := 10;
+  3     Y NUMBER := &Y;
+  4  BEGIN
+  5     DBMS_OUTPUT.PUT_LINE('X + Y = ' || (X+Y));
+  6     DBMS_OUTPUT.PUT_LINE('X - Y = ' || (X-Y));
+  7     DBMS_OUTPUT.PUT_LINE('X * Y = ' || (X*Y));
+  8     DBMS_OUTPUT.PUT_LINE('X / Y = ' || (X/Y));
+  9  END;
+ 10  /
+Enter value for y: 4
+old   3:    Y NUMBER := &Y;
+new   3:    Y NUMBER := 4;
+X + Y = 14                                                                                                                                                                          
+X - Y = 6                                                                                                                                                                           
+X * Y = 40                                                                                                                                                                          
+X / Y = 2.5                                                                                                                                                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> REM ASK FOR PA, ROI AND NOY AND FIND SIMPLE INTEREST.
+SQL> 
+SQL> DECLARE
+  2     PA NUMBER := &PA;
+  3     ROI NUMBER := &ROI;
+  4     NOY NUMBER := &NOY;
+  5  BEGIN
+  6     DBMS_OUTPUT.PUT_LINE((PA*ROI*NOY)/100);
+  7  END;
+  8  /
+Enter value for pa: 20000
+old   2:    PA NUMBER := &PA;
+new   2:    PA NUMBER := 20000;
+Enter value for roi: 14
+old   3:    ROI NUMBER := &ROI;
+new   3:    ROI NUMBER := 14;
+Enter value for noy: 3
+old   4:    NOY NUMBER := &NOY;
+new   4:    NOY NUMBER := 3;
+8400                                                                                                                                                                                
+
+PL/SQL procedure successfully completed.
+
+SQL> REM STATIC DECLARATION : variablename datatype(size)
+SQL> 
+SQL> REM DYNAMIC DECLARATION : tablename.columnname%TYPE
+SQL> 
+SQL> SELECT * FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME      LAST_NAME       EMAIL      PHONE_NUMBER         HIRE_DATE JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                 
+----------- --------------- --------------- ---------- -------------------- --------- ---------- ---------- -------------- ---------- -------------                                 
+        100 Steven          King            SKING      515.123.4567         17-JUL-87 AD_PRES         24000                                      90                                 
+        101 Neena           Kochhar         NKOCHHAR   515.123.4568         21-SEP-89 AD_VP           17000                       100            90                                 
+        102 Lex             De Haan         LDEHAAN    515.123.4569         13-JAN-93 AD_VP           17000                       100            90                                 
+        103 Alexander       Hunold          AHUNOLD    590.423.4567         03-JAN-90 IT_PROG          9000                       102            60                                 
+        104 Bruce           Ernst           BERNST     590.423.4568         21-MAY-91 IT_PROG          6000                       103            60                                 
+        107 Diana           Lorentz         DLORENTZ   590.423.5567         07-FEB-99 IT_PROG          4200                       103            60                                 
+        124 Kevin           Mourgos         KMOURGOS   650.123.5234         16-NOV-99 ST_MAN           5800                       100            50                                 
+        141 Trenna          Rajs            TRAJS      650.121.8009         17-OCT-95 ST_CLERK         3500                       124            50                                 
+        142 Curtis          Davies          CDAVIES    650.121.2994         29-JAN-97 st_clerk         3100                       124            50                                 
+        143 Randall         Matos           RMATOS     650.121.2874         15-MAR-98 St_Clerk         2600                       124            50                                 
+        144 Peter           Vargas          PVARGAS    650.121.2004         09-JUL-98 St_ClERk         2500                       124            50                                 
+        149 Eleni           Zlotkey         EZLOTKEY   011.44.1344.429018   29-JAN-00 SA_MAN          10500             .2        100            80                                 
+        174 Ellen           Abel                       011.44.1644.429267   11-MAY-96 SA_REP          11000             .3        149            80                                 
+        176 Jonathon        Taylor          JTAYLOR    011.44.1644.429265   24-MAR-98 SA_REP           8600             .3        149            80                                 
+        178 Kimerely        Grant           KGRANT     011.44.1644.429263   24-MAY-99 SA_REP           7000            .15        149                                               
+        200 Jennifer        Whalen          JWHALEN    515.123.4444         17-SEP-87 AD_ASST          4400                       101            10                                 
+        201 Michael         Hartstein       MHARTSTE   515.123.5555         17-FEB-96 MK_MAN          13000                       100            20                                 
+        202 Pat             Fay             PFAY       603.123.6666         17-AUG-97 MK_REP           6000                       201            20                                 
+        205 Shelley         Higgins         SHIGGINS   515.123.8080         07-JUN-94 AC_MGR          12000                       101           110                                 
+        206 William         Gietz           WGIETZ     515.123.8181         07-JUN-94 AC_ACCOUNT       8300                       205           110                                 
+
+20 rows selected.
+
+SQL> DESC EMPLOYEES
+ Name                                                                                                  Null?    Type
+ ----------------------------------------------------------------------------------------------------- -------- --------------------------------------------------------------------
+ EMPLOYEE_ID                                                                                           NOT NULL NUMBER(6)
+ FIRST_NAME                                                                                                     VARCHAR2(15)
+ LAST_NAME                                                                                             NOT NULL VARCHAR2(15)
+ EMAIL                                                                                                          VARCHAR2(10)
+ PHONE_NUMBER                                                                                                   VARCHAR2(20)
+ HIRE_DATE                                                                                             NOT NULL DATE
+ JOB_ID                                                                                                NOT NULL VARCHAR2(10)
+ SALARY                                                                                                         NUMBER(8,2)
+ COMMISSION_PCT                                                                                                 NUMBER(2,2)
+ MANAGER_ID                                                                                                     NUMBER(6)
+ DEPARTMENT_ID                                                                                                  NUMBER(4)
+
+SQL> REM V_SALARY NUMBER(8,2); -- STATIC DECLARATION
+SQL> 
+SQL> REM V_SALARY EMPLOYEES.SALARY%TYPE; -- DYNAMIC DECLARATION
+SQL> 
+SQL> REM WAP WHICH WILL ASK FOR EMPLOYEE_ID AND SHOULD DISPLAY FIRST_NAME AND SALARY VALUES.
+SQL> 
+SQL> DECLARE
+  2    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3    FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4    SAL EMPLOYEES.SALARY%TYPE;
+  5  BEGI
+  6    SELECT FIRST_NAME , SALARY
+  7    INTO   FNM        , SAL
+  8    FROM EMPLOYEES
+  9    WHERE EMPLOYEE_ID = EID;
+ 10    DBMS_OUTPUT.PUT_LINE('EMPLOYEE_ID : ' || EID);
+ 11    DBMS_OUTPUT.PUT_LINE('FIRST NAME  : ' || FNM);
+ 12    DBMS_OUTPUT.PUT_LINE('SALARY      : ' || SAL);
+ 13  END;
+ 14  .
+SQL> 
+SQL> DECLARE
+  2    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3    FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4    SAL EMPLOYEES.SALARY%TYPE;
+  5  BEGIN
+  6    SELECT FIRST_NAME , SALARY
+  7    INTO   FNM        , SAL
+  8    FROM EMPLOYEES
+  9    WHERE EMPLOYEE_ID = EID;
+ 10    DBMS_OUTPUT.PUT_LINE('EMPLOYEE_ID : ' || EID);
+ 11    DBMS_OUTPUT.PUT_LINE('FIRST NAME  : ' || FNM);
+ 12    DBMS_OUTPUT.PUT_LINE('SALARY      : ' || SAL);
+ 13  END;
+ 14  /
+Enter value for eid: 100
+old   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := 100;
+EMPLOYEE_ID : 100                                                                                                                                                                   
+FIRST NAME  : Steven                                                                                                                                                                
+SALARY      : 24000                                                                                                                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for eid: 101
+old   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := 101;
+EMPLOYEE_ID : 101                                                                                                                                                                   
+FIRST NAME  : Neena                                                                                                                                                                 
+SALARY      : 17000                                                                                                                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for eid: 200
+old   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := 200;
+EMPLOYEE_ID : 200                                                                                                                                                                   
+FIRST NAME  : Jennifer                                                                                                                                                              
+SALARY      : 4400                                                                                                                                                                  
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for eid: 123
+old   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := 123;
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 6 
+
+
+SQL> REM WRITE A PROGRAM WHICH WILL ASK FOR EMPLOYEE_ID AND WILL DISPLAY FIRST_NAME , YEARLY SALARY , COUNT_OF_JOB_YEARS_COMPLETED
+SQL> 
+SQL> --  START D:\SQL\EX2.SQL
+SQL> 
+SQL> DECLARE
+  2     EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3     FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4     SAL EMPLOYEES.SALARY%TYPE;
+  5     CNT NUMBER;
+  6  BEGIN
+  7     SELECT FIRST_NAME, SALARY, TRUNC(MONTHS_BETWEEN(SYSDATE, hire_date) / 12)
+  8     INTO FNM, SAL, CNT
+  9     FROM EMPLOYEES
+ 10     WHERE EMPLOYEE_ID = EID;
+ 11     DBMS_OUTPUT.PUT_LINE('FIRST NAME: ' || FNM);
+ 12     DBMS_OUTPUT.PUT_LINE('YEARLY SALARY: ' || SAL*12);
+ 13     DBMS_OUTPUT.PUT_LINE('COUNT: ' || CNT);
+ 14  END;
+ 15  /
+Enter value for eid: 102
+old   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := 102;
+FIRST NAME: Lex                                                                                                                                                                     
+YEARLY SALARY: 204000                                                                                                                                                               
+COUNT: 30                                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> REM ASK FOR EMPLOYEE_ID AND DISPLAY FULLNAME , DEPARTMENT_NAME AND CITY.
+SQL> 
+SQL> DECLARE
+  2     EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3     FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4     DNM DEPARTMENTS.DEPARTMENT_NAME%TYPE;
+  5     CTY LOCATIONS.CITY%TYPE;
+  6  BEGIN
+  7     SELECT E.FIRST_NAME, D.DEPARTMENT_NAME, L.CITY
+  8     INTO FNM, DNM, CTY
+  9     FROM EMPLOYEES E
+ 10     JOIN DEPARTMENTS D
+ 11     ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+ 12     JOIN LOCATIONS L
+ 13     ON D.LOCATION_ID = L.LOCATION_ID
+ 14     WHERE E.EMPLOYEE_ID = EID;
+ 15  
+ 16     DBMS_OUTPUT.PUT_LINE('FULL NAME: ' || FNM);
+ 17     DBMS_OUTPUT.PUT_LINE('DEPARTMENT NAME: ' || DNM);
+ 18     DBMS_OUTPUT.PUT_LINE('CITY: ' || CTY);
+ 19  END;
+ 20  /
+Enter value for eid: 105
+old   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := 105;
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 7 
+
+
+SQL> /
+Enter value for eid: 102
+old   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := 102;
+FULL NAME: Lex                                                                                                                                                                      
+DEPARTMENT NAME: Executive                                                                                                                                                          
+CITY: Seattle                                                                                                                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT * FROM EMPLOYEES;
+
+EMPLOYEE_ID FIRST_NAME      LAST_NAME       EMAIL      PHONE_NUMBER         HIRE_DATE JOB_ID         SALARY COMMISSION_PCT MANAGER_ID DEPARTMENT_ID                                 
+----------- --------------- --------------- ---------- -------------------- --------- ---------- ---------- -------------- ---------- -------------                                 
+        100 Steven          King            SKING      515.123.4567         17-JUL-87 AD_PRES         24000                                      90                                 
+        101 Neena           Kochhar         NKOCHHAR   515.123.4568         21-SEP-89 AD_VP           17000                       100            90                                 
+        102 Lex             De Haan         LDEHAAN    515.123.4569         13-JAN-93 AD_VP           17000                       100            90                                 
+        103 Alexander       Hunold          AHUNOLD    590.423.4567         03-JAN-90 IT_PROG          9000                       102            60                                 
+        104 Bruce           Ernst           BERNST     590.423.4568         21-MAY-91 IT_PROG          6000                       103            60                                 
+        107 Diana           Lorentz         DLORENTZ   590.423.5567         07-FEB-99 IT_PROG          4200                       103            60                                 
+        124 Kevin           Mourgos         KMOURGOS   650.123.5234         16-NOV-99 ST_MAN           5800                       100            50                                 
+        141 Trenna          Rajs            TRAJS      650.121.8009         17-OCT-95 ST_CLERK         3500                       124            50                                 
+        142 Curtis          Davies          CDAVIES    650.121.2994         29-JAN-97 st_clerk         3100                       124            50                                 
+        143 Randall         Matos           RMATOS     650.121.2874         15-MAR-98 St_Clerk         2600                       124            50                                 
+        144 Peter           Vargas          PVARGAS    650.121.2004         09-JUL-98 St_ClERk         2500                       124            50                                 
+        149 Eleni           Zlotkey         EZLOTKEY   011.44.1344.429018   29-JAN-00 SA_MAN          10500             .2        100            80                                 
+        174 Ellen           Abel                       011.44.1644.429267   11-MAY-96 SA_REP          11000             .3        149            80                                 
+        176 Jonathon        Taylor          JTAYLOR    011.44.1644.429265   24-MAR-98 SA_REP           8600             .3        149            80                                 
+        178 Kimerely        Grant           KGRANT     011.44.1644.429263   24-MAY-99 SA_REP           7000            .15        149                                               
+        200 Jennifer        Whalen          JWHALEN    515.123.4444         17-SEP-87 AD_ASST          4400                       101            10                                 
+        201 Michael         Hartstein       MHARTSTE   515.123.5555         17-FEB-96 MK_MAN          13000                       100            20                                 
+        202 Pat             Fay             PFAY       603.123.6666         17-AUG-97 MK_REP           6000                       201            20                                 
+        205 Shelley         Higgins         SHIGGINS   515.123.8080         07-JUN-94 AC_MGR          12000                       101           110                                 
+        206 William         Gietz           WGIETZ     515.123.8181         07-JUN-94 AC_ACCOUNT       8300                       205           110                                 
+
+20 rows selected.
+
+SQL> DECLARE
+  2     EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3     FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4     DNM DEPARTMENTS.DEPARTMENT_NAME%TYPE;
+  5     CTY LOCATIONS.CITY%TYPE;
+  6  BEGIN
+  7     SELECT E.FIRST_NAME||' '||E.LAST_NAME, D.DEPARTMENT_NAME, L.CITY
+  8     INTO FNM, DNM, CTY
+  9     FROM EMPLOYEES E
+ 10     JOIN DEPARTMENTS D
+ 11     ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+ 12     JOIN LOCATIONS L
+ 13     ON D.LOCATION_ID = L.LOCATION_ID
+ 14     WHERE E.EMPLOYEE_ID = EID;
+ 15  
+ 16     DBMS_OUTPUT.PUT_LINE('FULL NAME: ' || FNM);
+ 17     DBMS_OUTPUT.PUT_LINE('DEPARTMENT NAME: ' || DNM);
+ 18     DBMS_OUTPUT.PUT_LINE('CITY: ' || CTY);
+ 19  END;
+ 20  /
+Enter value for eid: 201
+old   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := 201;
+DECLARE
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: character string buffer too small 
+ORA-06512: at line 7 
+
+
+SQL> DECLARE
+  2     EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3     FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4     LNM EMPLOYEES.LAST_NAME%TYPE;
+  5     CTY LOCATIONS.CITY%TYPE;
+  6  BEGIN
+  7     SELECT E.FIRST_NAME , E.LAST_NAME, D.DEPARTMENT_NAME, L.CITY
+  8     INTO FNM, LNM , DNM, CTY
+  9     FROM EMPLOYEES E
+ 10     JOIN DEPARTMENTS D
+ 11     ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+ 12     JOIN LOCATIONS L
+ 13     ON D.LOCATION_ID = L.LOCATION_ID
+ 14     WHERE E.EMPLOYEE_ID = EID;
+ 15  
+ 16     DBMS_OUTPUT.PUT_LINE('FULL NAME: ' || FNM || ' ' || LNM);
+ 17     DBMS_OUTPUT.PUT_LINE('DEPARTMENT NAME: ' || DNM);
+ 18     DBMS_OUTPUT.PUT_LINE('CITY: ' || CTY);
+ 19  END;
+ 20  /
+Enter value for eid: 201
+old   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := 201;
+   INTO FNM, LNM , DNM, CTY
+                   *
+ERROR at line 8:
+ORA-06550: line 8, column 20: 
+PLS-00201: identifier 'DNM' must be declared 
+ORA-06550: line 9, column 4: 
+PL/SQL: ORA-00904: : invalid identifier 
+ORA-06550: line 7, column 4: 
+PL/SQL: SQL Statement ignored 
+ORA-06550: line 17, column 48: 
+PLS-00201: identifier 'DNM' must be declared 
+ORA-06550: line 17, column 4: 
+PL/SQL: Statement ignored 
+
+
+SQL> DECLARE
+  2     EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3     FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4     LNM EMPLOYEES.LAST_NAME%TYPE;
+  5     DNM DEPARTMENTS.DEPARTMENT_NAME%TYPE;
+  6     CTY LOCATIONS.CITY%TYPE;
+  7  BEGIN
+  8     SELECT E.FIRST_NAME , E.LAST_NAME, D.DEPARTMENT_NAME, L.CITY
+  9     INTO FNM, LNM , DNM, CTY
+ 10     FROM EMPLOYEES E
+ 11     JOIN DEPARTMENTS D
+ 12     ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+ 13     JOIN LOCATIONS L
+ 14     ON D.LOCATION_ID = L.LOCATION_ID
+ 15     WHERE E.EMPLOYEE_ID = EID;
+ 16  
+ 17     DBMS_OUTPUT.PUT_LINE('FULL NAME: ' || FNM || ' ' || LNM);
+ 18     DBMS_OUTPUT.PUT_LINE('DEPARTMENT NAME: ' || DNM);
+ 19     DBMS_OUTPUT.PUT_LINE('CITY: ' || CTY);
+ 20  END;
+ 21  /
+Enter value for eid: 201
+old   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := 201;
+FULL NAME: Michael Hartstein                                                                                                                                                        
+DEPARTMENT NAME: Marketing                                                                                                                                                          
+CITY: Toronto                                                                                                                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> REM ASK FOR DEPARTMENT_ID AND DISPLAY DEPARTMENT_NAME , LOWEST_SALARY_PAID , HIGHEST_SALARY_PAID
+SQL> 
+SQL> DECLARE
+  2     DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+  3     DNM DEPARTMENTS.DEPARTMENT_NAME%TYPE;
+  4     L_SAL EMPLOYEES.SALARY%TYPE;
+  5     H_SAL EMPLOYEES.SALARY%TYPE;
+  6  BEGIN
+  7     SELECT MAX(E.SALARY), MIN(E.SALARY), D.DEPARTMENT_NAME
+  8     INTO L_SAL, H_SAL, DNM
+  9     FROM EMPLOYEES E
+ 10     JOIN DEPARTMENTS D
+ 11     ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+ 12     WHERE E.DEPARTMENT_ID = DID;
+ 13  
+ 14     DBMS_OUTPUT.PUT_LINE('DEPARTMENT_NAME: ' || DNM);
+ 15     DBMS_OUTPUT.PUT_LINE('LOWEST_SALARY: ' || L_SAL);
+ 16     DBMS_OUTPUT.PUT_LINE('HIGHEST_SALARY: ' || H_SAL);
+ 17  END;
+ 18  /
+Enter value for did: 90
+old   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+new   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := 90;
+DECLARE
+*
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+ORA-06512: at line 7 
+
+
+SQL> DECLARE
+  2     DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+  3     DNM DEPARTMENTS.DEPARTMENT_NAME%TYPE;
+  4     L_SAL EMPLOYEES.SALARY%TYPE;
+  5     H_SAL EMPLOYEES.SALARY%TYPE;
+  6  BEGIN
+  7     SELECT MAX(E.SALARY), MIN(E.SALARY), D.DEPARTMENT_NAME
+  8     INTO L_SAL, H_SAL, DNM
+  9     FROM EMPLOYEES E
+ 10     JOIN DEPARTMENTS D
+ 11     ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+ 12     WHERE E.DEPARTMENT_ID = DID
+ 13     GROUP BY D.DEPARTMENT_ID
+ 14  ;
+ 15  
+ 16     DBMS_OUTPUT.PUT_LINE('DEPARTMENT_NAME: ' || DNM);
+ 17     DBMS_OUTPUT.PUT_LINE('LOWEST_SALARY: ' || L_SAL);
+ 18     DBMS_OUTPUT.PUT_LINE('HIGHEST_SALARY: ' || H_SAL);
+ 19  END;
+ 20  /
+Enter value for did: 90
+old   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+new   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := 90;
+DECLARE
+*
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+ORA-06512: at line 7 
+
+
+SQL> DECLARE
+  2     DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+  3     DNM DEPARTMENTS.DEPARTMENT_NAME%TYPE;
+  4     L_SAL EMPLOYEES.SALARY%TYPE;
+  5     H_SAL EMPLOYEES.SALARY%TYPE;
+  6  BEGIN
+  7     SELECT MAX(E.SALARY), MIN(E.SALARY), D.DEPARTMENT_NAME
+  8     INTO L_SAL, H_SAL, DNM
+  9     FROM EMPLOYEES E
+ 10     JOIN DEPARTMENTS D
+ 11     ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+ 12     WHERE E.DEPARTMENT_ID = DID
+ 13     GROUP BY D.DEPARTMENT_NAME;
+ 14     DBMS_OUTPUT.PUT_LINE('DEPARTMENT_NAME: ' || DNM);
+ 15     DBMS_OUTPUT.PUT_LINE('LOWEST_SALARY: ' || L_SAL);
+ 16     DBMS_OUTPUT.PUT_LINE('HIGHEST_SALARY: ' || H_SAL);
+ 17  END;
+ 18  /
+Enter value for did: 90
+old   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+new   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := 90;
+DEPARTMENT_NAME: Executive                                                                                                                                                          
+LOWEST_SALARY: 24000                                                                                                                                                                
+HIGHEST_SALARY: 17000                                                                                                                                                               
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2     DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+  3     DNM DEPARTMENTS.DEPARTMENT_NAME%TYPE;
+  4     L_SAL EMPLOYEES.SALARY%TYPE;
+  5     H_SAL EMPLOYEES.SALARY%TYPE;
+  6  BEGIN
+  7     SELECT MAX(E.SALARY), MIN(E.SALARY), D.DEPARTMENT_NAME
+  8     INTO M_SAL, L_SAL, DNM
+  9  .
+SQL> DECLARE
+  2     DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+  3     DNM DEPARTMENTS.DEPARTMENT_NAME%TYPE;
+  4     L_SAL EMPLOYEES.SALARY%TYPE;
+  5     H_SAL EMPLOYEES.SALARY%TYPE;
+  6  BEGIN
+  7     SELECT MAX(E.SALARY), MIN(E.SALARY), D.DEPARTMENT_NAME
+  8     INTO H_SAL, L_SAL, DNM
+  9     FROM EMPLOYEES E
+ 10     JOIN DEPARTMENTS D
+ 11     ON E.DEPARTMENT_ID = D.DEPARTMENT_ID
+ 12     WHERE E.DEPARTMENT_ID = DID
+ 13     GROUP BY D.DEPARTMENT_NAME;
+ 14     DBMS_OUTPUT.PUT_LINE('DEPARTMENT_NAME: ' || DNM);
+ 15     DBMS_OUTPUT.PUT_LINE('LOWEST_SALARY: ' || L_SAL);
+ 16     DBMS_OUTPUT.PUT_LINE('HIGHEST_SALARY: ' || H_SAL);
+ 17  END;
+ 18  /
+Enter value for did: 80
+old   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+new   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := 80;
+DEPARTMENT_NAME: Sales                                                                                                                                                              
+LOWEST_SALARY: 8600                                                                                                                                                                 
+HIGHEST_SALARY: 11000                                                                                                                                                               
+
+PL/SQL procedure successfully completed.
+
+SQL> SPOOL OFF

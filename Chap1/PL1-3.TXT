@@ -1,0 +1,291 @@
+SQL> 
+SQL> DECLARE
+  2    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3    FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4  BEGIN
+  5    SELECT FIRST_NAME
+  6    INTO FNM
+  7    FROM EMPLOYEES
+  8    WHERE EMPLOYEE_ID = EID;
+  9    DBMS_OUTPUT.PUT_LINE('NAME : ' || FNM);
+ 10  END;
+ 11  /
+Enter value for eid: 100
+old   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := 100;
+NAME : Steven                                                                                                                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for eid: 200
+old   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := 200;
+NAME : Jennifer                                                                                                                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for eid: 300
+old   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := 300;
+DECLARE
+*
+ERROR at line 1:
+ORA-01403: no data found 
+ORA-06512: at line 5 
+
+
+SQL> REM EXCEPTION : PART IS GIVEN FOR HANDLING THE ERRORS.
+SQL> 
+SQL> /*
+SQL> 
+SQL> LIST OF INTERNAL EXCEPTIONS :
+SQL> 
+SQL> EXCEPTION NAME              ERROR NUMBER
+SQL> ==============              ============
+SQL> ACCESS_INTO_NULL    ORA-06530
+SQL> CASE_NOT_FOUND  ORA-06592
+SQL> COLLECTION_IS_NULL  ORA-06531
+SQL> CURSOR_ALREADY_OPEN ORA-06511
+SQL> DUP_VAL_ON_INDEX    ORA-00001
+SQL> INVALID_CURSOR  ORA-01001
+SQL> INVALID_NUMBER  ORA-01722
+SQL> LOGIN_DENIED    ORA-01017
+SQL> NO_DATA_FOUND   ORA-01403
+SQL> NOT_LOGGED_ON   ORA-01012
+SQL> PROGRAM_ERROR   ORA-06501
+SQL> ROWTYPE_MISMATCH    ORA-06504
+SQL> SELF_IS_NULL    ORA-30625
+SQL> STORAGE_ERROR   ORA-06500
+SQL> SUBSCRIPT_BEYOND_COUNT  ORA-06533
+SQL> SUBSCRIPT_OUTSIDE_LIMIT ORA-06532
+SQL> SYS_INVALID_ROWID   ORA-01410
+SQL> TIMEOUT_ON_RESOURCE ORA-00051
+SQL> TOO_MANY_ROWS   ORA-01422
+SQL> VALUE_ERROR ORA-06502
+SQL> ZERO_DIVIDE ORA-01476
+SQL> */
+SQL> 
+SQL> 
+SQL> DECLARE
+  2    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3    FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4  BEGIN
+  5    SELECT FIRST_NAME
+  6    INTO FNM
+  7    FROM EMPLOYEES
+  8    WHERE EMPLOYEE_ID = EID;
+  9    DBMS_OUTPUT.PUT_LINE('NAME : ' || FNM);
+ 10  EXCEPTION
+ 11    WHEN NO_DATA_FOUND THEN
+ 12      DBMS_OUTPUT.PUT_LINE('EMPLOYEE_ID ' || EID || ' DOES NOT WORK IN COMPANY. PLEASE TRY CORRECT ID.');
+ 13  END;
+ 14  /
+Enter value for eid: 100
+old   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := 100;
+NAME : Steven                                                                                                                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for eid: 300
+old   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:   EID EMPLOYEES.EMPLOYEE_ID%TYPE := 300;
+EMPLOYEE_ID 300 DOES NOT WORK IN COMPANY. PLEASE TRY CORRECT ID.                                                                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> REM ASK FOR DEPARTMENT_ID. IF SINGLE EMPLOYEE WORKS IN SUPPLIED DEPARTMENT, DISPLAY FIRST_NAME, OTHERWISE DISPLAY PROPER ERROR MESSAGE.
+SQL> 
+SQL> /*
+SQL> 
+SQL> LIST OF INTERNAL EXCEPTIONS :
+SQL> 
+SQL> EXCEPTION NAME              ERROR NUMBER
+SQL> ==============              ============
+SQL> ACCESS_INTO_NULL    ORA-06530
+SQL> CASE_NOT_FOUND  ORA-06592
+SQL> COLLECTION_IS_NULL  ORA-06531
+SQL> CURSOR_ALREADY_OPEN ORA-06511
+SQL> DUP_VAL_ON_INDEX    ORA-00001
+SQL> INVALID_CURSOR  ORA-01001
+SQL> INVALID_NUMBER  ORA-01722
+SQL> LOGIN_DENIED    ORA-01017
+SQL> NO_DATA_FOUND   ORA-01403
+SQL> NOT_LOGGED_ON   ORA-01012
+SQL> PROGRAM_ERROR   ORA-06501
+SQL> ROWTYPE_MISMATCH    ORA-06504
+SQL> SELF_IS_NULL    ORA-30625
+SQL> STORAGE_ERROR   ORA-06500
+SQL> SUBSCRIPT_BEYOND_COUNT  ORA-06533
+SQL> SUBSCRIPT_OUTSIDE_LIMIT ORA-06532
+SQL> SYS_INVALID_ROWID   ORA-01410
+SQL> TIMEOUT_ON_RESOURCE ORA-00051
+SQL> TOO_MANY_ROWS   ORA-01422
+SQL> VALUE_ERROR ORA-06502
+SQL> ZERO_DIVIDE ORA-01476
+SQL> */
+SQL> 
+SQL> DECLARE
+  2     DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+  3     FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4  BEGIN
+  5     SELECT FIRST_NAME
+  6     INTO FNM
+  7     FROM EMPLOYEES
+  8     WHERE DEPARTMENT_ID = DID;
+  9     DBMS_OUTPUT.PUT_LINE('FIRST NAME: ' || FNM);
+ 10  EXCEPTION
+ 11     WHEN TOO_MANY_ROWS THEN
+ 12             DBMS_OUTPUT.PUT_LINE('ID: ' || DID || ' HAS TOO MANY ROWS');
+ 13    WHEN NO_DATA_FOUND THEN
+ 14     DBMS_OUTPUT.PUT_LINE('NO DATA FOUND FOR ID: ' || DID);
+ 15  END;
+ 16  /
+Enter value for did: 10
+old   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+new   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := 10;
+FIRST NAME: Jennifer                                                                                                                                                                
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for did: 110
+old   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+new   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := 110;
+ID: 110 HAS TOO MANY ROWS                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for did: 220
+old   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := &DID;
+new   2:    DID EMPLOYEES.DEPARTMENT_ID%TYPE := 220;
+NO DATA FOUND FOR ID: 220                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> STA E:\PL2-1.SQL
+OUTER BLOCK                                                                                                                                                                         
+X = 10                                                                                                                                                                              
+INNER BLOCK                                                                                                                                                                         
+Y = 20                                                                                                                                                                              
+X = 10                                                                                                                                                                              
+OUTER BLOCK                                                                                                                                                                         
+Y (USING BIND/HOST VARIABLE) = 20                                                                                                                                                   
+X = 10                                                                                                                                                                              
+
+PL/SQL procedure successfully completed.
+
+SQL> PRINT
+
+         B                                                                                                                                                                          
+----------                                                                                                                                                                          
+        20                                                                                                                                                                          
+
+SQL> SELECT 45 * :B FROM DUAL;
+
+     45*:B                                                                                                                                                                          
+----------                                                                                                                                                                          
+       900                                                                                                                                                                          
+
+SQL> CONN SCOTT/TIGER
+Connected.
+SQL> SELECT 45 * :B FROM DUAL;
+
+     45*:B                                                                                                                                                                          
+----------                                                                                                                                                                          
+       900                                                                                                                                                                          
+
+SQL> QUESTION 1:
+SP2-0734: unknown command beginning "QUESTION 1..." - rest of line ignored.
+SQL> DECLARE
+  2     EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3     FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4     HD EMPLOYEES.HIRE_DATE%TYPE;
+  5     CNT_Y NUMBER;
+  6     CNT_Q NUMBER;
+  7     CNT_M NUMBER;
+  8  BEGIN
+  9     SELECT FIRST_NAME, HIRE_DATE, TO_NUMBER(SUBSTR(TO_CHAR(SYSDATE, 'YYYY'), 1, 4)) - TO_NUMBER(SUBSTR(TO_CHAR(HIRE_DATE, 'YYYY'), 1, 4)), TRUNC(MONTHS_BETWEEN(SYSDATE, HIRE_DATE)/3),
+ 10     TRUNC(MONTHS_BETWEEN(SYSDATE, HIRE_DATE))
+ 11     INTO FNM, HD, CNT_Y, CNT_Q, CNT_M
+ 12     FROM EMPLOYEES
+ 13     WHERE EMPLOYEE_ID = EID;
+ 14     DBMS_OUTPUT.PUT_LINE('FIRST_NAME: ' || FNM);
+ 15     DBMS_OUTPUT.PUT_LINE('HIRE_DATE: ' || HD);
+ 16     DBMS_OUTPUT.PUT_LINE('YEARS: ' || CNT_Y);
+ 17     DBMS_OUTPUT.PUT_LINE('QUATERS: ' || CNT_Q);
+ 18     DBMS_OUTPUT.PUT_LINE('MONTHS: ' || CNT_M);
+ 19  END;
+ 20  /
+Enter value for eid: 102
+old   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := 102;
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUT ON FORMAT WRA
+SQL> 
+SQL> /
+Enter value for eid: 102
+old   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:    EID EMPLOYEES.EMPLOYEE_ID%TYPE := 102;
+FIRST_NAME: Lex                                                                                                                                                                     
+HIRE_DATE: 13-JAN-93                                                                                                                                                                
+YEARS: 30                                                                                                                                                                           
+QUATERS: 122                                                                                                                                                                        
+MONTHS: 366                                                                                                                                                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2      EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+  3      FNM EMPLOYEES.FIRST_NAME%TYPE;
+  4      SAL EMPLOYEES.SALARY%TYPE;
+  5      MNM EMPLOYEES.FIRST_NAME%TYPE;
+  6   BEGIN
+  7      SELECT E.FIRST_NAME, E.SALARY, M.FIRST_NAME
+  8      INTO FNM, SAL, MNM
+  9      FROM EMPLOYEES E
+ 10      LEFT JOIN EMPLOYEES M ON E.MANAGER_ID = M.EMPLOYEE_ID
+ 11      WHERE E.EMPLOYEE_ID = EID;
+ 12      DBMS_OUTPUT.PUT_LINE('FIRST_NAME: ' || FNM);
+ 13      DBMS_OUTPUT.PUT_LINE('SALARY: ' || SAL);
+ 14      DBMS_OUTPUT.PUT_LINE('MANAGER FIRST_NAME: ' || MNM);
+ 15  END;
+ 16  /
+Enter value for eid: 101
+old   2:     EID EMPLOYEES.EMPLOYEE_ID%TYPE := &EID;
+new   2:     EID EMPLOYEES.EMPLOYEE_ID%TYPE := 101;
+FIRST_NAME: Neena                                                                                                                                                                   
+SALARY: 17000                                                                                                                                                                       
+MANAGER FIRST_NAME: Steven                                                                                                                                                          
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2      X NUMBER := 10;
+  3   BEGIN
+  4      DECLARE
+  5              Y NUMBER := 20;
+  6      BEGIN
+  7              DECLARE
+  8                      Z NUMBER := 30;
+  9              BEGIN
+ 10                      DBMS_OUTPUT.PUT_LINE('X*Y*Z: ' || (X*Y*Z));
+ 11              END;
+ 12              DBMS_OUTPUT.PUT_LINE('X/Y: ' || (X/Y));
+ 13      END;
+ 14              DBMS_OUTPUT.PUT_LINE('X: ' || X);
+ 15   END;
+ 16   /
+X*Y*Z: 6000                                                                                                                                                                         
+X/Y: .5                                                                                                                                                                             
+X: 10                                                                                                                                                                               
+
+PL/SQL procedure successfully completed.
+
+SQL> SPOOL OFF

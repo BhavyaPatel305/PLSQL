@@ -1,0 +1,585 @@
+SQL> 
+SQL> REM SQL : STRCUTRURED QUERY LANGUAGE
+SQL> 
+SQL> REM PLSQL : ProceduraL STRCUTRURED QUERY LANGUAGE
+SQL> 
+SQL> REM PLSQL BLOCK STRUCTURE
+SQL> 
+SQL> /*
+SQL> DECLARE
+SQL> ...
+SQL> ...
+SQL> BEGIN
+SQL> ..
+SQL> ..
+SQL> ..
+SQL> EXCEPTION
+SQL> ..
+SQL> ..
+SQL> ..
+SQL> END;
+SQL> /
+SQL> */
+SQL> 
+SQL> 
+SQL> REM DECLARE ... : DELCARATION PART : OPTIONAL
+SQL> 
+SQL> REM BEGIN ... : EXECUTABLE PART : MANDATORY
+SQL> 
+SQL> REM EXCEPTION ... : ERROR/EXCEPTION HANDLING PART : OPTIONAL
+SQL> 
+SQL> 
+SQL> REM DBMS_OUTPUT.PUT_LINE(single_item);
+SQL> 
+SQL> BEGIN
+  2     DBMS_OUTPUT.PUT_LINE('SHRI GANESHAY NAMAH!');
+  3  END;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+SQL> SHOW SERVEROUT
+serveroutput OFF
+SQL> SET SERVEROUT ON
+SQL> 
+SQL> BEGIN
+  2     DBMS_OUTPUT.PUT_LINE('SHRI GANESHAY NAMAH!');
+  3  END;
+  4  /
+SHRI GANESHAY NAMAH!                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> REM DISPLAY OM NAMAH SHIVAYA!
+SQL> 
+SQL> BEGIN
+  2     DBMS_OUTPUT.PUT_LINE('OM NAMO SHIVAY');
+  3  END;
+  4  /
+OM NAMO SHIVAY                                                                  
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE('OM');
+  3    DBMS_OUTPUT.PUT_LINE(' NAMAH ');
+  4    DBMS_OUTPUT.PUT_LINE(' SHIVAYA! ');
+  5  END;
+  6  /
+OM                                                                              
+NAMAH                                                                           
+SHIVAYA!                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE('OM',' NAMAH ',' SHIVAYA! ');
+  3  END;
+  4  /
+  DBMS_OUTPUT.PUT_LINE('OM',' NAMAH ',' SHIVAYA! ');
+  *
+ERROR at line 2:
+ORA-06550: line 2, column 3: 
+PLS-00306: wrong number or types of arguments in call to 'PUT_LINE' 
+ORA-06550: line 2, column 3: 
+PL/SQL: Statement ignored 
+
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE('OM' || ' NAMAH ' || ' SHIVAYA! ');
+  3  END;
+  4  /
+OM NAMAH  SHIVAYA!                                                              
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE('OM');
+  3    DBMS_OUTPUT.PUT_LINE(' NAMAH ');
+  4    DBMS_OUTPUT.PUT_LINE(' SHIVAYA! ');
+  5  END;
+  6  /
+OM                                                                              
+NAMAH                                                                           
+SHIVAYA!                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE('OM' || CHR(10) || 'NAMAH' || CHR(10) || 'SHIVAYA!');
+  3  END;
+  4  /
+OM
+NAMAH
+SHIVAYA!                                                               
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT CHR(7) FROM DUAL;
+
+C                                                                               
+-                                                                               
+                                                                               
+
+SQL> SELECT CHR(7) FROM DUAL;
+
+C                                                                               
+-                                                                               
+                                                                               
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE(CHR(7));
+  3  END;
+  4  /
+                                                                               
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> SELECT CHR(7) FROM DUAL;
+
+C                                                                               
+-                                                                               
+                                                                               
+
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE(CHR(7));
+  3  END;
+  4  /
+                                                                               
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT CHR(7) FROM DUAL;
+
+C                                                                               
+-                                                                               
+                                                                               
+
+SQL> SELECT CHR(7) FROM DUAL;
+
+C                                                                               
+-                                                                               
+                                                                               
+
+SQL> SELECT CHR(7) FROM DUAL;
+
+C                                                                               
+-                                                                               
+                                                                               
+
+SQL> SELECT CHR(7) FROM DUAL;
+
+C                                                                               
+-                                                                               
+                                                                               
+
+SQL> BEGIN
+  2      DBMS_OUTPUT.PUT_LINE('BHAVYA');
+  3      DBMS_OUTPUT.PUT_LINE('RAJESHKUMAR');
+  4      DBMS_OUTPUT.PUT_LINE('PATEL');
+  5   END;
+  6   /
+BHAVYA                                                                          
+RAJESHKUMAR                                                                     
+PATEL                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  2     DBMS_OUTPUT.PUT_LINE('BHAVYA' || 'RAJESH' || 'PATEL');
+  3  END;
+  4  /
+BHAVYARAJESHPATEL                                                               
+
+PL/SQL procedure successfully completed.
+
+SQL>      BEGIN
+  2     DBMS_OUTPUT.PUT_LINE('BHAVYA' || CHR(10) || 'RAJESH' || CHR(10) || 'PATEL');
+  3  END;
+  4  /
+BHAVYA
+RAJESH
+PATEL                                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  2      DBMS_OUTPUT.PUT('BHAVYA');
+  3      DBMS_OUTPUT.PUT('RAJESHKUMAR');
+  4     DBMS_OUTPUT.PUT_LINE('PATEL');
+  5  END;
+  6  /
+BHAVYARAJESHKUMARPATEL                                                          
+
+PL/SQL procedure successfully completed.
+
+SQL> /*
+SQL> OM
+SQL>   NAMAH
+SQL>        SHIVAYA!
+SQL> */
+SQL> 
+SQL> 
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE('OM');
+  3    DBMS_OUTPUT.PUT_LINE('  NAMAH');
+  4    DBMS_OUTPUT.PUT_LINE('       SHIVAYA!');
+  5  END;
+  6  /
+OM                                                                              
+NAMAH                                                                           
+SHIVAYA!                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUT ON FORMAT WRA
+SQL> 
+SQL> BEGIN
+  2    DBMS_OUTPUT.PUT_LINE('OM');
+  3    DBMS_OUTPUT.PUT_LINE('  NAMAH');
+  4    DBMS_OUTPUT.PUT_LINE('       SHIVAYA!');
+  5  END;
+  6  /
+OM                                                                              
+  NAMAH                                                                         
+       SHIVAYA!                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> /*
+SQL> BHAVYA
+SQL>       RAJESHKUMAR
+SQL>                  PATEL
+SQL> */
+SQL> 
+SQL> 
+SQL> REM 3 PUT_LINE , SINGLE PUT_LINE
+SQL> 
+SQL> BEGIN
+  2     DBMS_OUTPUT.PUT_LINE('BHAVYA');
+  3     DBMS_OUTPUT.PUT_LINE('  RAJESHKUMAR');
+  4     DBMS_OUTPUT.PUT_LINE('          PATEL');
+  5  END;
+  6  /
+BHAVYA                                                                          
+  RAJESHKUMAR                                                                   
+          PATEL                                                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+  2     DBMS_OUTPUT.PUT_LINE('BHAVYA' || CHR(10) || '   RAJESHKUMAR' || CHR(10) || '            PATEL');
+  3  END;
+  4  /
+BHAVYA
+   RAJESHKUMAR
+            PATEL                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT ROWNUM , CHR(ROWNUM) FROM DICT WHERE ROWNUM < 128;
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+         1                                                                     
+         2                                                                     
+         3                                                                     
+         4                                                                     
+         5                                                                     
+         6                                                                     
+         7                                                                     
+         8                                                                     
+         9 	                                                                    
+        10                                                                      
+        11                                                                     
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+        12                                                                     
+        13                                                                      
+        14                                                                     
+        15                                                                     
+        16                                                                     
+        17                                                                     
+        18                                                                     
+        19                                                                     
+        20                                                                     
+        21                                                                     
+        22                                                                     
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+        23                                                                     
+        24                                                                     
+        25                                                                     
+        26                                                                     
+        27                                                                     
+        28                                                                     
+        29                                                                     
+        30                                                                     
+        31                                                                     
+        32                                                                      
+        33 !                                                                    
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+        34 "                                                                    
+        35 #                                                                    
+        36 $                                                                    
+        37 %                                                                    
+        38 &                                                                    
+        39 '                                                                    
+        40 (                                                                    
+        41 )                                                                    
+        42 *                                                                    
+        43 +                                                                    
+        44 ,                                                                    
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+        45 -                                                                    
+        46 .                                                                    
+        47 /                                                                    
+        48 0                                                                    
+        49 1                                                                    
+        50 2                                                                    
+        51 3                                                                    
+        52 4                                                                    
+        53 5                                                                    
+        54 6                                                                    
+        55 7                                                                    
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+        56 8                                                                    
+        57 9                                                                    
+        58 :                                                                    
+        59 ;                                                                    
+        60 <                                                                    
+        61 =                                                                    
+        62 >                                                                    
+        63 ?                                                                    
+        64 @                                                                    
+        65 A                                                                    
+        66 B                                                                    
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+        67 C                                                                    
+        68 D                                                                    
+        69 E                                                                    
+        70 F                                                                    
+        71 G                                                                    
+        72 H                                                                    
+        73 I                                                                    
+        74 J                                                                    
+        75 K                                                                    
+        76 L                                                                    
+        77 M                                                                    
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+        78 N                                                                    
+        79 O                                                                    
+        80 P                                                                    
+        81 Q                                                                    
+        82 R                                                                    
+        83 S                                                                    
+        84 T                                                                    
+        85 U                                                                    
+        86 V                                                                    
+        87 W                                                                    
+        88 X                                                                    
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+        89 Y                                                                    
+        90 Z                                                                    
+        91 [                                                                    
+        92 \                                                                    
+        93 ]                                                                    
+        94 ^                                                                    
+        95 _                                                                    
+        96 `                                                                    
+        97 a                                                                    
+        98 b                                                                    
+        99 c                                                                    
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+       100 d                                                                    
+       101 e                                                                    
+       102 f                                                                    
+       103 g                                                                    
+       104 h                                                                    
+       105 i                                                                    
+       106 j                                                                    
+       107 k                                                                    
+       108 l                                                                    
+       109 m                                                                    
+       110 n                                                                    
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+       111 o                                                                    
+       112 p                                                                    
+       113 q                                                                    
+       114 r                                                                    
+       115 s                                                                    
+       116 t                                                                    
+       117 u                                                                    
+       118 v                                                                    
+       119 w                                                                    
+       120 x                                                                    
+       121 y                                                                    
+
+    ROWNUM CHR(                                                                 
+---------- ----                                                                 
+       122 z                                                                    
+       123 {                                                                    
+       124 |                                                                    
+       125 }                                                                    
+       126 ~                                                                    
+       127                                                                     
+
+127 rows selected.
+
+SQL> EXEC DBMS_OUTPUT.PUT_LINE('SHRI'||CHR(8)||'RAM')
+SHRIRAM                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> EXEC DBMS_OUTPUT.PUT_LINE('SHRI'||CHR(9)||'RAM')
+SHRI	RAM                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> EXEC DBMS_OUTPUT.PUT_LINE('SHRI'||CHR(11)||'RAM')
+SHRIRAM                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> EXEC DBMS_OUTPUT.PUT_LINE('SHRI'||CHR(12)||'RAM')
+SHRIRAM                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> EXEC DBMS_OUTPUT.PUT_LINE('SHRI'||CHR(13)||'RAM')
+SHRIRAM                                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> EXEC DBMS_OUTPUT.PUT_LINE('SHRI'||CHR(9)||'RAM'||CHR(9)||'HI')
+SHRI	RAM	HI                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> REM NUMBER CHAR VARCHAR NVARCHAR2 DATE TIMESTAMP
+SQL> 
+SQL> REM TIMESTAMP WITH TIME ZONE
+SQL> 
+SQL> REM TIMESTAMP WITH LOCALTIME ZONE
+SQL> 
+SQL> REM INTERVAL DAY TO SECOND
+SQL> 
+SQL> REM INTERVAL YEAR TO MONTH
+SQL> 
+SQL> REN BFILE
+SP2-0042: unknown command "REN BFILE" - rest of line ignored.
+SQL> 
+SQL> DECLARE
+  2    X NUMBER := 10;
+  3    Y NUMBER(3) DEFAULT 4;
+  4  BEGIN
+  5    DBMS_OUTPUT.PUT_LINE('X = ' || X);
+  6    DBMS_OUTPUT.PUT_LINE('Y = ' || Y);
+  7    DBMS_OUTPUT.PUT_LINE('TOTAL = ' || X+Y);
+  8    DBMS_OUTPUT.PUT_LINE('PRODUCT = ' || X*Y);
+  9  END;
+ 10  /
+X = 10                                                                          
+Y = 4                                                                           
+DECLARE
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: character to number conversion error 
+ORA-06512: at line 7 
+
+
+SQL> DECLARE
+  2    X NUMBER := 10;
+  3    Y NUMBER(3) DEFAULT 4;
+  4  BEGIN
+  5    DBMS_OUTPUT.PUT_LINE('X = ' || X);
+  6    DBMS_OUTPUT.PUT_LINE('Y = ' || Y);
+  7    DBMS_OUTPUT.PUT_LINE('TOTAL = ' || (X+Y));
+  8    DBMS_OUTPUT.PUT_LINE('PRODUCT = ' || X*Y);
+  9  END;
+ 10  /
+X = 10                                                                          
+Y = 4                                                                           
+TOTAL = 14                                                                      
+PRODUCT = 40                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2    X NUMBER := 10;
+  3    Y NUMBER(3);
+  4  BEGIN
+  5    Y := 4;
+  6    DBMS_OUTPUT.PUT_LINE('X = ' || X);
+  7    DBMS_OUTPUT.PUT_LINE('Y = ' || Y);
+  8    DBMS_OUTPUT.PUT_LINE('TOTAL = ' || (X+Y));
+  9    DBMS_OUTPUT.PUT_LINE('PRODUCT = ' || X*Y);
+ 10  END;
+ 11  /
+X = 10                                                                          
+Y = 4                                                                           
+TOTAL = 14                                                                      
+PRODUCT = 40                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2    X NUMBER := 10;
+  3    Y NUMBER(3);
+  4  BEGIN
+  5    Y DEFAULT 4;
+  6    DBMS_OUTPUT.PUT_LINE('X = ' || X);
+  7    DBMS_OUTPUT.PUT_LINE('Y = ' || Y);
+  8    DBMS_OUTPUT.PUT_LINE('TOTAL = ' || (X+Y));
+  9    DBMS_OUTPUT.PUT_LINE('PRODUCT = ' || X*Y);
+ 10  END;
+ 11  /
+  Y DEFAULT 4;
+    *
+ERROR at line 5:
+ORA-06550: line 5, column 5: 
+PLS-00103: Encountered the symbol "DEFAULT" when expecting one of the 
+following: 
+:= . ( @ % ; 
+The symbol ":= was inserted before "DEFAULT" to continue. 
+
+
+SQL> REM DECLARE TWO VARIABLES AND DISPLAY 1 ADDITION 2 SUBTRACTION 3 MULTIPLICATION 4 DIVISION OF TWO NUMBERS.
+SQL> 
+SQL> DECLARE
+  2     X NUMBER := 20;
+  3     Y NUMBER := 10;
+  4  BEGIN
+  5     DBMS_OUTPUT.PUT_LINE('X + Y = ' || (X+Y));
+  6     DBMS_OUTPUT.PUT_LINE('X - Y = ' || (X-Y));
+  7     DBMS_OUTPUT.PUT_LINE('X * Y = ' || (X*Y));
+  8     DBMS_OUTPUT.PUT_LINE('X / Y = ' || (X/Y));
+  9  END;
+ 10  /
+X + Y = 30                                                                      
+X - Y = 10                                                                      
+X * Y = 200                                                                     
+X / Y = 2                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> SPOOL OFF
