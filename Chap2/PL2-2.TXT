@@ -1,0 +1,150 @@
+
+SQL> STA E:\PL2-2.SQL
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUT ON FORMAT WRA
+SQL>
+SQL> STA E:\PL2-2.SQL
+OUTER BLOCK X FROM WITHIN OUTER BLOCK = 10
+================================================================================
+X = 20
+================================================================================
+INNER BLOCK X FROM WITHIN INNER BLOCK = 30
+OUTER BLOCK X FROM WITHIN INNER BLOCK = 20
+OUTER BLOCK X FROM WITHIN INNER BLOCK = 10
+================================================================================
+MIDDLE BLOCK X FROM WITHIN MIDDLE BLOCK = 20
+OUTER BLOCK X FROM WITHIN MIDDLE BLOCK = 10
+OUTER BLOCK X FROM WITHIN OUTER BLOCK = 10
+
+PL/SQL procedure successfully completed.
+
+SQL> <<ONE>>
+  2  DECLARE
+  3     A NUMBER := 10;
+  4  BEGIN
+  5     <<TWO>>
+  6     DECLARE
+  7             A NUMBER := 20;
+  8     BEGIN
+  9             <<THREE>>
+ 10             DECLARE
+ 11                     A NUMBER := 30;
+ 12             BEGIN
+ 13                     DBMS_OUTPUT.PUT_LINE('SUM:' || (ONE.A + TWO.A));
+ 14                     DBMS_OUTPUT.PUT_LINE('PRODUCT:' || (ONE.A * TWO.A));
+ 15             END;
+ 16             DBMS_OUTPUT.PUT_LINE('SUB:' || (TWO.A - ONE.A));
+ 17     END;
+ 18  END;
+ 19  /
+SUM:30
+PRODUCT:200
+SUB:10
+
+PL/SQL procedure successfully completed.
+
+SQL> VAR B NUMBER
+SQL> VAR C NUMBER
+SQL> <<PARENT>>
+  2   DECLARE
+  3      X NUMBER := 10;
+  4   BEGIN
+  5      <<CHILD1>>
+  6      DECLARE
+  7              Y NUMBER := 2;
+  8      BEGIN
+  9              DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Y: ' || Y || ' X + Y: ' || (X+Y));
+ 10      :B = Y;
+ 11      END;
+ 12      <<CHILD2>>
+ 13      DECLARE
+ 14              Z NUMBER := 5;
+ 15      BEGIN
+ 16              DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Z: ' || Z || ' X - Y: ' || (X-Y));
+ 17      :C = Z;
+ 18      END;
+ 19              DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Y: ' || :B || ' Z: ' || :C || ' X * Y * Z: ' || (X*:B*:C));
+ 20   END;
+ 21   /
+    :B = Y;
+       *
+ERROR at line 10:
+ORA-06550: line 10, column 8:
+PLS-00103: Encountered the symbol "=" when expecting one of the following:
+:= . ( @ % ; indicator
+The symbol ":= was inserted before "=" to continue.
+ORA-06550: line 17, column 8:
+PLS-00103: Encountered the symbol "=" when expecting one of the following:
+:= . ( @ % ; indicator
+The symbol ":= was inserted before "=" to continue.
+
+
+SQL> VAR B NUMBER
+SQL> VAR C NUMBER
+SQL> <<PARENT>>
+  2   DECLARE
+  3      X NUMBER := 10;
+  4   BEGIN
+  5      <<CHILD1>>
+  6      DECLARE
+  7              Y NUMBER := 2;
+  8      BEGIN
+  9              DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Y: ' || Y || ' X + Y: ' || (X+Y));
+ 10      :B := Y;
+ 11      END;
+ 12      <<CHILD2>>
+ 13      DECLARE
+ 14              Z NUMBER := 5;
+ 15      BEGIN
+ 16              DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Z: ' || Z || ' X - Y: ' || (X-Y));
+ 17      :C = Z;
+ 18      END;
+ 19              DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Y: ' || :B || ' Z: ' || :C || ' X * Y * Z: ' || (X*:B*:C));
+ 20   END;
+ 21   /
+    :C = Z;
+       *
+ERROR at line 17:
+ORA-06550: line 17, column 8:
+PLS-00103: Encountered the symbol "=" when expecting one of the following:
+:= . ( @ % ; indicator
+The symbol ":= was inserted before "=" to continue.
+
+
+SQL> VAR B NUMBER
+SQL> VAR C NUMBER
+SQL> <<PARENT>>
+  2   DECLARE
+  3      X NUMBER := 10;
+  4   BEGIN
+  5      <<CHILD1>>
+  6      DECLARE
+  7              Y NUMBER := 2;
+  8      BEGIN
+  9              DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Y: ' || Y || ' X + Y: ' || (X+Y));
+ 10      :B := Y;
+ 11      END;
+ 12      <<CHILD2>>
+ 13      DECLARE
+ 14              Z NUMBER := 5;
+ 15      BEGIN
+ 16              DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Z: ' || Z || ' X - Y: ' || (X-Y));
+ 17      :C := Z;
+ 18      END;
+ 19              DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Y: ' || :B || ' Z: ' || :C || ' X * Y * Z: ' || (X*:B*:C));
+ 20   END;
+ 21   /
+            DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Z: ' || Z || ' X - Y: ' || (X-Y));
+                                                                                      *
+ERROR at line 16:
+ORA-06550: line 16, column 87:
+PLS-00201: identifier 'Y' must be declared
+ORA-06550: line 16, column 13:
+PL/SQL: Statement ignored
+
+
+SQL> SPOOL OFF
+not spooling currently
+SQL>
