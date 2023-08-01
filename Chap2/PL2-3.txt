@@ -1,0 +1,270 @@
+
+SQL> VAR B NUMBER
+SQL> VAR C NUMBER
+SQL> <<PARENT>>
+  2     DECLARE
+  3        X NUMBER := 10;
+  4     BEGIN
+  5        <<CHILD1>>
+  6        DECLARE
+  7                Y NUMBER := 2;
+  8        BEGIN
+  9                DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Y: ' || Y || ' X + Y: ' || (X+Y));
+ 10        :B := Y;
+ 11        END;
+ 12        <<CHILD2>>
+ 13        DECLARE
+ 14                Z NUMBER := 5;
+ 15        BEGIN
+ 16                DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Z: ' || Z || ' X - Y: ' || (X-:B));
+ 17        :C := Z;
+ 18        END;
+ 19                DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Y: ' || :B || ' Z: ' || :C || ' X * Y * Z: ' || (X*:B*:C));
+ 20     END;
+ 21     /
+
+PL/SQL procedure successfully completed.
+
+SQL> SET SERVEROUT ON FORMAT WRA LINES 180 PAGES 24
+SQL>
+SQL> /
+X: 10 Y: 2 X + Y: 12
+X: 10 Z: 5 X - Y: 8
+X: 10 Y: 2 Z: 5 X * Y * Z: 100
+
+PL/SQL procedure successfully completed.
+
+SQL> STA E:\PL2-3.SQL
+V_BI = 20
+V_PI = -5
+SUM     = 15
+PRODUCT = -100
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT SALARY , TO_CHAR(SALARY,'99.99EEEE') FROM EMPLOYEES;
+
+    SALARY TO_CHAR(SA
+---------- ----------
+     24000   2.40E+04
+     17000   1.70E+04
+     17000   1.70E+04
+      9000   9.00E+03
+      6000   6.00E+03
+      4200   4.20E+03
+      5800   5.80E+03
+      3500   3.50E+03
+      3100   3.10E+03
+      2600   2.60E+03
+      2500   2.50E+03
+     10500   1.05E+04
+     11000   1.10E+04
+      8600   8.60E+03
+      7000   7.00E+03
+      4400   4.40E+03
+     13000   1.30E+04
+      6000   6.00E+03
+     12000   1.20E+04
+      8300   8.30E+03
+
+20 rows selected.
+
+SQL> REM 2.40E+04 = 2.4 * POWER(10,4)
+SQL>
+SQL>
+SQL> SELECT 2.4 * POEWR(10,4) FROM DUAL;
+SELECT 2.4 * POEWR(10,4) FROM DUAL
+             *
+ERROR at line 1:
+ORA-00904: "POEWR": invalid identifier
+
+
+SQL> SELECT 2.4 * POWER(10,4) FROM DUAL;
+
+2.4*POWER(10,4)
+---------------
+          24000
+
+SQL> STA E:\PL2-4.SQL
+V_BF = 1.23900003E+001
+V_BD = 4.1234567891234564E+000
+V_BF = 1.6513457132446209E+001
+V_BD =  016.513457
+V_BF =   12.3900
+V_BD =  004.123457
+
+PL/SQL procedure successfully completed.
+
+SQL> STA E:\PL2-4.SQL
+V_BF = 1.23900003E+001
+V_BD = 4.1234567891234564E+000
+V_BF + V_BD = 1.6513457132446209E+001
+V_BD =  016.513457
+V_BF =   12.3900
+V_BD =  004.123457
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT SYSDATE , SYSDATE + 3 FROM DUAL;
+
+SYSDATE   SYSDATE+3
+--------- ---------
+01-AUG-23 04-AUG-23
+
+SQL> SELECT SYSDATE , SYSDATE + (3/24) FROM DUAL;
+
+SYSDATE   SYSDATE+(
+--------- ---------
+01-AUG-23 01-AUG-23
+
+SQL> ALTER SESSION SET NLS_DATE_FORMAT = 'DD-MON-RRRR HH:MI.SS AM DAY';
+
+Session altered.
+
+SQL>
+SQL> SELECT SYSDATE , SYSDATE + (3/24) FROM DUAL;
+
+SYSDATE                           SYSDATE+(3/24)
+--------------------------------- ---------------------------------
+01-AUG-2023 12:28.59 PM TUESDAY   01-AUG-2023 03:28.59 PM TUESDAY
+
+SQL> SELECT SYSDATE , SYSDATE + (3/1440) FROM DUAL;
+
+SYSDATE                           SYSDATE+(3/1440)
+--------------------------------- ---------------------------------
+01-AUG-2023 12:29.15 PM TUESDAY   01-AUG-2023 12:32.15 PM TUESDAY
+
+SQL> SELECT SYSDATE , SYSDATE + (3/86400) FROM DUAL;
+
+SYSDATE                           SYSDATE+(3/86400)
+--------------------------------- ---------------------------------
+01-AUG-2023 12:29.25 PM TUESDAY   01-AUG-2023 12:29.28 PM TUESDAY
+
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,3) FROM DUAL;
+
+SYSDATE                           ADD_MONTHS(SYSDATE,3)
+--------------------------------- ---------------------------------
+01-AUG-2023 12:29.44 PM TUESDAY   01-NOV-2023 12:29.44 PM WEDNESDAY
+
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,12) FROM DUAL;
+
+SYSDATE                           ADD_MONTHS(SYSDATE,12)
+--------------------------------- ---------------------------------
+01-AUG-2023 12:29.57 PM TUESDAY   01-AUG-2024 12:29.57 PM THURSDAY
+
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,12*5) FROM DUAL;
+
+SYSDATE                           ADD_MONTHS(SYSDATE,12*5)
+--------------------------------- ---------------------------------
+01-AUG-2023 12:30.12 PM TUESDAY   01-AUG-2028 12:30.12 PM TUESDAY
+
+SQL> SELECT SYSDATE , ADD_MONTHS(SYSDATE,12*100) FROM DUAL;
+
+SYSDATE                           ADD_MONTHS(SYSDATE,12*100)
+--------------------------------- ---------------------------------
+01-AUG-2023 12:30.23 PM TUESDAY   01-AUG-2123 12:30.23 PM SUNDAY
+
+SQL> SELECT SYSTIMESTAMP , ADD_MONTHS(SYSTIMESTAMP,12*100) FROM DUAL;
+
+SYSTIMESTAMP                                                                ADD_MONTHS(SYSTIMESTAMP,12*100)
+--------------------------------------------------------------------------- ---------------------------------
+01-AUG-23 12.30.56.132000 PM +05:30                                         01-AUG-2123 12:30.56 PM SUNDAY
+
+SQL> SELECT LOCALTIMESTAMP , ADD_MONTHS(LOCALTIMESTAMP,12*100) FROM DUAL;
+
+LOCALTIMESTAMP                                                              ADD_MONTHS(LOCALTIMESTAMP,12*100)
+--------------------------------------------------------------------------- ---------------------------------
+01-AUG-23 12.31.16.085000 PM                                                01-AUG-2123 12:31.16 PM SUNDAY
+
+SQL> VAR B NUMBER
+SQL> VAR C NUMBER
+SQL> <<PARENT>>
+  2     DECLARE
+  3        X NUMBER := 10;
+  4     BEGIN
+  5        <<CHILD1>>
+  6        DECLARE
+  7                Y NUMBER := 2;
+  8        BEGIN
+  9                DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Y: ' || Y || ' X + Y: ' || (X+Y));
+ 10        :B := Y;
+ 11        END;
+ 12        <<CHILD2>>
+ 13        DECLARE
+ 14                Z NUMBER := 5;
+ 15        BEGIN
+ 16                DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Z: ' || Z || ' X - Y: ' || (X-:B));
+ 17        :C := Z;
+ 18        END;
+ 19                DBMS_OUTPUT.PUT_LINE('X: ' || PARENT.X || ' Y: ' || :B || ' Z: ' || :C || ' X * Y * Z: ' || (X*:B*:C));
+ 20     END;
+ 21     /
+X: 10 Y: 2 X + Y: 12
+X: 10 Z: 5 X - Y: 8
+X: 10 Y: 2 Z: 5 X * Y * Z: 100
+
+PL/SQL procedure successfully completed.
+
+SQL> STA E:\CH2-5.SQL
+SP2-0310: unable to open file "E:\CH2-5.SQL"
+SQL> STA E:\PL2-5.SQL
+TS = 01-AUG-23 12.38.01.311000 PM
+IDTS = +004 05:06:07.800000
+IYTM = -005-11
+05-AUG-23 05.44.09.111000000 PM
+01-SEP-17 12.38.01.311000000 PM
+05-SEP-17 05.44.09.111000000 PM
+
+PL/SQL procedure successfully completed.
+
+SQL> STA E:\PL2-6.SQL
+R = 533.12456789637
+
+PL/SQL procedure successfully completed.
+
+SQL> STA E:\PL2-7.SQL
+B1 = TRUE
+B2 = FALSE
+B3 = NULL considers as FALSE
+B1 = TRUE
+B2 = FALSE
+B3 = NULL
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT LOCALTIMESTAMP FROM DUAL;
+
+LOCALTIMESTAMP
+---------------------------------------------------------------------------
+01-AUG-23 01.29.01.828000 PM
+
+SQL> DECLARE
+  2     TS TIMESTAMP := TO_TIMESTAMP(&TS);
+  3     IDTS INTERVAL DAY(3) TO SECOND := TO_DSINTERVAL(&IDTS);
+  4     IYTM INTERVAL YEAR(3) TO MONTH := TO_YMINTERVAL(&IYTM);
+  5  BEGIN
+  6     DBMS_OUTPUT.PUT_LINE('TIMESTAMP: ' || TS);
+  7     DBMS_OUTPUT.PUT_LINE('TIMESTAMP + DAY TO SECOND: ' || (TS + IDTS));
+  8     DBMS_OUTPUT.PUT_LINE('TIMESTAMP - YEAR TO MONTH: ' || (TS - IYTM));
+  9     DBMS_OUTPUT.PUT_LINE('TIMESTAMP - DAY TO SECOND: ' || (TS - IDTS + IYTM));
+ 10  END;
+ 11  /
+Enter value for ts: '01-AUG-23 01.29.01.828000 PM'
+old   2:    TS TIMESTAMP := TO_TIMESTAMP(&TS);
+new   2:    TS TIMESTAMP := TO_TIMESTAMP('01-AUG-23 01.29.01.828000 PM');
+Enter value for idts: '2 3:4:5.6'
+old   3:    IDTS INTERVAL DAY(3) TO SECOND := TO_DSINTERVAL(&IDTS);
+new   3:    IDTS INTERVAL DAY(3) TO SECOND := TO_DSINTERVAL('2 3:4:5.6');
+Enter value for iytm: '4-8'
+old   4:    IYTM INTERVAL YEAR(3) TO MONTH := TO_YMINTERVAL(&IYTM);
+new   4:    IYTM INTERVAL YEAR(3) TO MONTH := TO_YMINTERVAL('4-8');
+TIMESTAMP: 01-AUG-23 01.29.01.828000 PM
+TIMESTAMP + DAY TO SECOND: 03-AUG-23 04.33.07.428000000 PM
+TIMESTAMP - YEAR TO MONTH: 01-DEC-18 01.29.01.828000000 PM
+TIMESTAMP - DAY TO SECOND: 30-MAR-28 10.24.56.228000000 AM
+
+PL/SQL procedure successfully completed.
+
+SQL> SPOOL OFF
+not spooling currently
+SQL>
