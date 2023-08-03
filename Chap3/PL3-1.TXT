@@ -1,0 +1,105 @@
+SQL> 
+SQL> CL SCR
+
+SQL> REM BY DEFAULT ALL STATEMENTS OF PLSQL BLOCK GETS EXECUTED MANDATORILY.
+SQL> 
+SQL> REM THE EXECUTION IS FROM TOP TO BOTTOM AND LEFT TO RIGHT.
+SQL> 
+SQL> REM IF WE WANT TO EXECUTE SOME SET OF STATEMENTS ONLY IF SOME CONDITION EVALUTES TO TRUE, THEN WE NEED TO USE CONDITIONAL STATEMENTS.
+SQL> 
+SQL> REM PLSQL SUPPORTS TWO CONDITIONAL STATEMENTS.
+SQL> 
+SQL> REM 1 IF 2 CASE
+SQL> 
+SQL> REM WHOLE IF ... END IF; STRUCTURE CAN BE SKIPPED, WITHOUT EXECUTING ANY STATEMENT.
+SQL> 
+SQL> REM WHOLE CASE ... END CASE; STRUCTURE CAN'T BE SKIPPED, WITHOUT EXECUTING ATLEAST SINGLE STATEMENT.
+SQL> 
+SQL> 
+SQL> REM TYPES OF IF SYNTAXES : 1 SIMPLE IF 2 IF ... ELSE 3 IF ... ELSIF ...
+SQL> 
+SQL> 
+SQL> REM SIMPLE IF SYNTAX : IF condition(s) THEN ... END IF; : THE STATEMENTS WILL GET EXECUTED ONLY IF CONDITION EVALUTES TO TRUE, OTHERWISE WHOLE IF STRUCTURE WILL BE SKIPPED.
+SQL> 
+SQL> DECLARE
+  2     DT DATE := &DT;
+  3  BEGIN
+  4     IF DT <= SYSDATE THEN
+  5             DBMS_OUTPUT.PUT_LINE('CORRECT INPUT');
+  6     END IF;
+  7  END;
+  8  /
+Enter value for dt: 1AUG23
+old   2:    DT DATE := &DT;
+new   2:    DT DATE := 1AUG23;
+   DT DATE := 1AUG23;
+               *
+ERROR at line 2:
+ORA-06550: line 2, column 16: 
+PLS-00103: Encountered the symbol "AUG23" when expecting one of the following: 
+* & = - + ; < / > at in is mod remainder not rem 
+<an exponent (**)> <> or != or ~= >= <= <> and or like like2 
+like4 likec between || multiset member submultiset 
+The symbol "*" was substituted for "AUG23" to continue. 
+
+
+SQL> /
+Enter value for dt: '1AUG23'
+old   2:    DT DATE := &DT;
+new   2:    DT DATE := '1AUG23';
+CORRECT INPUT                                                                                                                                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for dt: '3AUG23'
+old   2:    DT DATE := &DT;
+new   2:    DT DATE := '3AUG23';
+
+PL/SQL procedure successfully completed.
+
+SQL> STA E:\PL3-2.SQL
+Enter value for number1: 20
+old   2: 	N1 NUMBER(3) := &NUMBER1;  -- 10
+new   2: 	N1 NUMBER(3) := 20;  -- 10
+Enter value for number2: 60
+old   3: 	N2 NUMBER(3) := &NUMBER2;  -- 20
+new   3: 	N2 NUMBER(3) := 60;  -- 20
+END OF PROGRAM.                                                                                                                                                                                         
+60 IS BIG NUMBER.                                                                                                                                                                                       
+END OF PROGRAM.                                                                                                                                                                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for number1: 90
+old   2: 	N1 NUMBER(3) := &NUMBER1;  -- 10
+new   2: 	N1 NUMBER(3) := 90;  -- 10
+Enter value for number2: 30
+old   3: 	N2 NUMBER(3) := &NUMBER2;  -- 20
+new   3: 	N2 NUMBER(3) := 30;  -- 20
+END OF PROGRAM.                                                                                                                                                                                         
+90 IS BIG NUMBER.                                                                                                                                                                                       
+END OF PROGRAM.                                                                                                                                                                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2     BD DATE := TO_DATE(&BD);
+  3     AGE NUMBER;
+  4  BEGIN
+  5     AGE := ROUND((SYSDATE - BD)/365.25);
+  6     IF AGE >= 16:
+  7             DBMS_OUTPUT.PUT_LINE('ELIGIBLE FOR DRIVING LICENCE');
+  8     ELSE:
+  9             DBMS_OUTPUT.PUT_LINE('NOT ELIGIBLE FOR DRIVING LICENCE');
+ 10  END;
+ 11  /
+Enter value for bd: '
+old   2:    BD DATE := TO_DATE(&BD);
+new   2:    BD DATE := TO_DATE(');
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> SPOOL OFF
