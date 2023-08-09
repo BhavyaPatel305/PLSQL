@@ -2,6 +2,17 @@ ASK FOR BIRTHDATE :
 
 IF ENTERED BIRTH DATE IS TODAY'S DATE OR PAST DATE THEN IT SHOULD DISPLAY 'CORRECT INPUT.'
 
+DECLARE
+   BD DATE := '&BD';
+BEGIN
+   CASE WHEN BD <= SYSDATE THEN
+           DBMS_OUTPUT.PUT_LINE('CORRECT INPUT');
+   ELSE
+           DBMS_OUTPUT.PUT_LINE('INCORRECT INPUT');
+   END CASE;
+END;
+/
+
 ===================================================================
 
 ASK FOR BIRTHDATE TO FIND WHETHER PERSON IS ELIGIBLE TO GET DRIVING LICENCE OR NOT?
@@ -11,7 +22,7 @@ IF 16 YEARS COMPLETED, DISPLAY 'ELIGIBLE FOR DRIVING LICENCE.'
 IF 16 YEAR NOT COMPLETED, DISPLAY 'NOT ELIGIBLE FOR DRIVING LICENCE.'
                                   'SORRY, YOU NEED TO WAIT FOR ... DAYS TO APPLY FOR IT.'
 ASK USER FOR UNITS USED.
-
+=====================================================
 UNITS : 0-200 : 6/UNIT
 
 UNITS : 201-400 : 1100 + 7/UNIT (FOR 200+UNITS)
@@ -20,6 +31,24 @@ UNITS : 401-600 : 2500 + 8/UNIT (FOR 400+UNITS)
 
 UNITS : 601 ONWARDS : 10/UNIT
 
+
+
+DECLARE
+   UNITS NUMBER := &UNITS;
+BEGIN
+   CASE WHEN UNITS>= 0 AND UNITS <= 200 THEN
+           DBMS_OUTPUT.PUT_LINE('BILL: ' || UNITS*6);
+   WHEN UNITS >= 201 AND UNITS <= 400 THEN
+           DBMS_OUTPUT.PUT_LINE('BILL: ' || (1100 + (UNITS-200)*7));
+   WHEN UNITS >= 401 AND UNITS <= 600 THEN
+           DBMS_OUTPUT.PUT_LINE('BILL: ' || (2500 + (UNITS-400)*8));
+   WHEN UNITS >= 601 THEN
+           DBMS_OUTPUT.PUT_LINE('BILL: ' || (UNITS*10));
+   ELSE
+	   DBMS_OUTPUT.PUT_LINE('INCORRECT INPUT');
+   END CASE;
+END;
+/
 ===================================================================
 
 MEDIUM : ?  ENG/GUJ/HIN
@@ -34,8 +63,26 @@ ENG : MINIMUM SCORE IN ENGLISH : 60 + MINIMUM PERCENT : 75
 GUJ/HIN : MINIMUM SCORE IN ENGLISH : 70 + MINIMUM PERCENT : 80
 
 DISPLAY ELIGIBLE OR NOT ELIGIBLE FOR ADMISSION.
-ASK FOR 3 NUMBERS :
 
+
+DECLARE
+   MED VARCHAR(5) := '&MED';
+   ENG NUMBER := &ENG;
+   PER NUMBER := &PER;
+BEGIN
+   CASE WHEN MED = 'ENG' AND ENG >= 60 AND PER >= 75 THEN
+           DBMS_OUTPUT.PUT_LINE('ELIGIBLE');
+   WHEN (MED = 'GUJ' OR MED = 'HIN') AND ENG >= 70 AND PER >= 80 THEN
+           DBMS_OUTPUT.PUT_LINE('ELIGIBLE');
+   ELSE
+           DBMS_OUTPUT.PUT_LINE('NOT ELIGIBLE');
+   END CASE;
+END;
+/
+
+
+==================================================
+ASK FOR 3 NUMBERS :
 FIND SMALLEST NUMBER, HIGHEST NUMBER AND MIDDLE NUMBER.
 
 10 20 30
@@ -49,3 +96,191 @@ FIND SMALLEST NUMBER, HIGHEST NUMBER AND MIDDLE NUMBER.
 10 20 20
 20 20 10
 10 10 10
+
+
+DECLARE
+   NUM1 NUMBER := &NUM1;
+   NUM2 NUMBER := &NUM2;
+   NUM3 NUMBER := &NUM3;
+   HIGH NUMBER;
+   MID NUMBER;
+   SMALL NUMBER;
+BEGIN
+   CASE WHEN NUM1 = NUM2 AND NUM2 = NUM3 AND NUM1 = NUM3 THEN
+           DBMS_OUTPUT.PUT_LINE('HIGHEST: ' || '-');
+           DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || '-');
+           DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM1);
+   WHEN NUM1 = NUM2 THEN
+           CASE WHEN NUM2 > NUM3 THEN
+                   DBMS_OUTPUT.PUT_LINE('HIGHEST: ' || '-');
+                   DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || NUM2);
+                   DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM3);
+           WHEN NUM3 > NUM2 THEN
+                   DBMS_OUTPUT.PUT_LINE('HIGHEST: ' || NUM3);
+                   DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || '-');
+                   DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM2);
+           END CASE;
+   WHEN NUM2 = NUM3 THEN
+           CASE WHEN NUM1 > NUM2 THEN
+                   DBMS_OUTPUT.PUT_LINE('HIGHEST: ' || NUM1);
+                   DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || '-');
+                   DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM2);
+           WHEN NUM2 > NUM1 THEN
+                   DBMS_OUTPUT.PUT_LINE('HIGHEST: ' || '-');
+                   DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || NUM2);
+                   DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM1);
+           END CASE;
+   WHEN NUM1 = NUM3 THEN
+           CASE WHEN NUM2 > NUM1 THEN
+                   DBMS_OUTPUT.PUT_LINE('HIGHEST: ' || NUM2);
+                   DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || '-');
+                   DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM1);
+           WHEN NUM1 > NUM2 THEN
+                   DBMS_OUTPUT.PUT_LINE('HIGHEST: ' || '-');
+                   DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || NUM1);
+                   DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM2);
+           END CASE;
+   WHEN NUM1 > NUM2 AND NUM1 > NUM3 THEN
+                   DBMS_OUTPUT.PUT_LINE('HIGHEST: ' || NUM1);
+                   CASE WHEN NUM2 > NUM3 THEN
+                           DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || NUM2);
+                           DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM3);
+                   ELSE
+                           DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || NUM3);
+                           DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM2);
+                   END CASE;
+   WHEN NUM2 > NUM3 AND NUM2 > NUM1 THEN
+                   DBMS_OUTPUT.PUT_LINE('HIGHEST: ' || NUM2);
+                   CASE WHEN NUM1 > NUM3 THEN
+                           DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || NUM1);
+                           DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM3);
+                   ELSE
+                           DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || NUM3);
+                           DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM1);
+                   END CASE;
+   ELSE
+                   DBMS_OUTPUT.PUT_LINE('HIGHEST: ' || NUM3);
+                   CASE WHEN NUM1 > NUM2 THEN
+                           DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || NUM1);
+                           DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM2);
+                   ELSE
+                           DBMS_OUTPUT.PUT_LINE('MIDDLE: ' || NUM2);
+                           DBMS_OUTPUT.PUT_LINE('SMALLEST: ' || NUM1);
+                   END CASE;
+   END CASE;
+END;
+/
+===============================================================================
+CHAP 4:
+===============================================================================
+1:
+DECLARE
+   LOWER NUMBER := &LOWER;
+   HIGHER NUMBER := &HIGHER;
+BEGIN
+   LOOP
+           DBMS_OUTPUT.PUT_LINE(LOWER);
+           EXIT WHEN LOWER = HIGHER;
+           LOWER := LOWER + 1;
+   END LOOP;
+END;
+/
+
+
+===============================================================================
+2:
+DECLARE
+   HIGHER NUMBER := &HIGHER;
+   LOWER NUMBER := &LOWER;
+BEGIN
+   LOOP
+           DBMS_OUTPUT.PUT_LINE(HIGHER);
+           EXIT WHEN HIGHER = LOWER;
+           HIGHER := HIGHER - 1;
+   END LOOP;
+END;
+/
+===============================================================================
+3:
+DECLARE
+   NUM1 NUMBER := &NUM1;
+   NUM2 NUMBER := &NUM2;
+BEGIN
+   IF NUM1 > NUM2 THEN
+           LOOP
+                   DBMS_OUTPUT.PUT_LINE(NUM1);
+                   EXIT WHEN NUM1 = NUM2;
+                   NUM1 := NUM1 - 1;
+           END LOOP;
+   ELSE
+            LOOP
+                    DBMS_OUTPUT.PUT_LINE(NUM1);
+                    EXIT WHEN NUM1 = NUM2;
+                    NUM1 := NUM1 + 1;
+            END LOOP;
+   END IF;
+END;
+/
+==================================================================================
+4:
+DECLARE
+   LOW NUMBER := &LOW;
+   HIGH NUMBER := &HIGH;
+   DIFF NUMBER := &DIFF;
+BEGIN
+   LOOP
+           EXIT WHEN LOW > HIGH;
+           DBMS_OUTPUT.PUT_LINE(LOW);
+           LOW := LOW + DIFF;
+   END LOOP;
+END;
+/
+====================================================================================
+5:
+DECLARE
+   NUM1 NUMBER := &NUM1;
+   NUM2 NUMBER := &NUM2;
+   DIFF NUMBER := &DIFF;
+BEGIN
+   IF NUM1 > NUM2 THEN
+           LOOP
+                   EXIT WHEN NUM1 < NUM2;
+                   DBMS_OUTPUT.PUT_LINE(NUM1);
+                   NUM1 := NUM1 - DIFF;
+           END LOOP;
+   ELSE
+            LOOP
+                    EXIT WHEN NUM1 > NUM2;
+                    DBMS_OUTPUT.PUT_LINE(NUM1);
+                    NUM1 := NUM1 + DIFF;
+            END LOOP;
+   END IF;
+END;
+/
+=======================================================================================
+6:
+DECLARE
+   NUM1 NUMBER := &NUM1;
+   NUM2 NUMBER := &NUM2;
+   COUNT NUMBER := 0;
+   SUM NUMBER := 0;
+BEGIN
+   IF NUM1 > NUM2 THEN
+           LOOP
+                   EXIT WHEN NUM1 = NUM2;
+		   SUM := SUM + NUM1;
+                   NUM1 := NUM1 - 1;
+	     	   COUNT := COUNT + 1;
+           END LOOP;
+   ELSE
+            LOOP
+                    EXIT WHEN NUM1 = NUM2;
+  		    SUM := SUM + NUM1;
+                    NUM1 := NUM1 + 1;
+	     	    COUNT := COUNT + 1;
+            END LOOP;
+   END IF;
+   DBMS_OUTPUT.PUT_LINE('COUNT: ' || COUNT);
+   DBMS_OUTPUT.PUT_LINE('AVG: ' || (SUM/COUNT));
+END;
+/

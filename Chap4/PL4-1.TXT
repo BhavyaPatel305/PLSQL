@@ -1,0 +1,59 @@
+SQL> 
+SQL> REM LOOP : TO EXECUTE SET OF STATEMENTS MULTIPLE TIMES.
+SQL> 
+SQL> REM PLSQL SUPPORTS 3 TYPES OF LOOP : 1 SIMPLE LOOP / INFINITE LOOP  2  WHILE LOOP   3 FOR LOOP
+SQL> 
+SQL> REM IN SIMPLE LOOP WE MUST USE EXPLICIT EXIT STATEMENT WITHIN CONDITIONAL STATEMENT.
+SQL> 
+SQL> REM 3 STYLES OF WRITING CONDITIONAL EXIT : 1 IF 2 CASE 3 EXIT .. WHEN
+SQL> 
+SQL> REM IF condition THEN EXIT; END IF;
+SQL> 
+SQL> REM CASE WHEN condition THEN EXIT; ELSE ... END CASE;
+SQL> 
+SQL> REM EXIT WHEN condition;
+SQL> 
+SQL> REM SIMPLE IF CAN BE USED FOR 3 DIFFERENT REQUIREMENTS : 1 ENTRY CONTROL LOOP 2 EXIT CONTROL LOOP 3 TRANSIT CONTROL LOOP
+SQL> 
+SQL> REM ENTRY CONTROL LOOP : LOOP EXIT WHEN condition; ... END LOOP;
+SQL> 
+SQL> REM EXIT CONTROL LOOP : LOOP ... EXIT WHEN condition; END LOOP;
+SQL> 
+SQL> REM TRANSIT CONTROL LOOP : LOOP ... EXIT WHEN condition; ... END LOOP;
+SQL> 
+SQL> REM DISPLAY 1 TO 5 USING SIMPLE LOOP
+SQL> 
+SQL> DECLARE
+  2    C NUMBER := 1;
+  3  BEGIN
+  4    LOOP
+  5      DBMS_OUTPUT.PUT_LINE(C);
+  6      EXIT WHEN C = 5;
+  7      C := C + 1;
+  8    END LOOP;
+  9  END;
+ 10  /
+1                                                                                                                                                                                                       
+2                                                                                                                                                                                                       
+3                                                                                                                                                                                                       
+4                                                                                                                                                                                                       
+5                                                                                                                                                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> REM 1 ASK FOR LOWER AND HIGHER VALUE : DISPLAY ALL OF THEM
+SQL> 
+SQL> REM 2 ASK FOR HIGHER AND LOWER VALUE : DISPLAY ALL OF THEM IN DESCEDING ORDER
+SQL> 
+SQL> REM 3 ASK FOR TWO NUMBERS : 2 , 5 : 2 3 4 5      5 , 2 ; 5 4 3 2
+SQL> 
+SQL> REM 4 ASK FOR THREE NUMBERS : LOWER , HIGHER , DIFFERENCE : 4  20  3  : 4 7 10 13 16 19
+SQL> 
+SQL> REM 5 ASK FOR THREE NUMBERS : ANY TWO NUMBERS , DIFFERENCE : 20  5  4  : 20 16 12 8
+SQL> 
+SQL> REM 6 ASK FOR TOW NUMBERS : 4 , 10 : 4+5+6+7+8+9+10=49   COUNT : 6   AVG : 8.16
+SQL> 
+SQL> REM 7 ASK FOR 3 NUMBERS : 30  10  7 : 30+23+16=69 ,  COUNT : 3   , AVG : 23
+SQL> 
+SQL> SPOOL OFF
